@@ -12,7 +12,7 @@ use App\Http\Controllers\Api as Controllers;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::middleware('api')->namespace('Api')->group(function () {
+Route::middleware('client')->namespace('Api')->group(function () {
 
     Route::resource('properties', 'PropertyController', [
         'only' => ['index', 'show', 'store']
