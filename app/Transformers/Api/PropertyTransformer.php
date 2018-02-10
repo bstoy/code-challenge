@@ -23,6 +23,7 @@ class PropertyTransformer extends TransformerAbstract
             'city' => $property->city,
             'county' => $property->county,
             'country_code' => $property->country_code,
+            'geocodes' => $property->geocodes
         ];
     }
 
