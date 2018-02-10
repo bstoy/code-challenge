@@ -24,4 +24,10 @@ class Property extends Model
 
         return $geocodes;
     }
+
+    public function setPostCodeAttribute(?string $postCode)
+    {
+        $this->attributes['post_code'] = str_replace(' ', '', $postCode);
+
+    }
 }

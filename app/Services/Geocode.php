@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Exceptions\UnexpectedResponseException;
 use App\Models\Property;
 use GuzzleHttp\Client;
+use Illuminate\Http\Response;
 
 class Geocode
 {
@@ -18,11 +19,7 @@ class Geocode
     {
         $url = sprintf(
             'https://maps.googleapis.com/maps/api/geocode/json?address=%s&key=%s',
-            urlencode(implode(' ', [
-                $property->address_1,
-                $property->city,
-                $property->post_code
-            ])),
+            $property->post_code,
             config('services.google.api_key')
         );
 
@@ -30,8 +27,12 @@ class Geocode
         $response = $client->get($url);
         $results = head(json_decode($response->getBody())->results);
 
-        if (!$results) {
+        if (json_decode($response->getStatusCode()) !== Response::HTTP_OK) {
             throw new UnexpectedResponseException($response);
+        }
+
+        if (!$results) {
+            return null;
         }
 
         return $results->geometry->location;
