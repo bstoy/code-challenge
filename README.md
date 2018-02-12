@@ -1,5 +1,5 @@
 Code Challenge - API with Google Maps API   
-=======================
+============================================
 
 Backend Developer Code Challenge
 
@@ -32,7 +32,7 @@ Requirements
 * PHP >= 7.1
 
 Includes
-============
+========
 
 Laravel Passport for Authentication
 https://github.com/laravel/passport
@@ -51,6 +51,101 @@ Get geocodes for Address
                                                      "lng": XXXX,
                                                    }
     
+API endpoints
+=============
 
+Authentication via Access Token
+(check https://github.com/laravel/passport)
 
+###### Header
+    'headers' => [
+            'Accept' => 'application/json',
+            'Authorization' => 'Bearer '.$accessToken,
+        ],
+
+#### Display one Property
+
+    GET api/properties/{property}
+    
+##### Response
+
+    {
+        "data": {
+            "id": 1,
+            "address_1": "Flat 32l, Price Rue",
+            "address_2": "Flat 03",
+            "city": "Lake Sienna",
+            "county": null,
+            "country_code": "GB",
+            "geocodes": {
+                "lat": 51.5117038,
+                "lng": -0.1571492
+            }
+        }
+    }
+
+#### List all Properties
+
+    GET api/properties
+    
+##### Response
+
+    {
+        "data": [
+            {
+                "id": 1,
+                "address_1": "Flat 32l, Price Rue",
+                "address_2": "Flat 03",
+                "city": "Lake Sienna",
+                "county": null,
+                "country_code": "GB",
+                "geocodes": {
+                    "lat": 51.5117038,
+                    "lng": -0.1571492
+                }
+            },
+            {
+                ...
+            },
+            {
+                ...
+            },
+            ...
+        ]
+    }
+    
+#### Store one Property
+
+    POST api/properties 
+    
+##### Request      
+
+Request parameter with validation rules
+
+    'building_name' => 'nullable|string|max:60',
+    'address_1' => 'required|string|max:60',
+    'address_2' => 'nullable|string|max:60',
+    'city' => 'required|string|max:40',
+    'post_code' => 'required|string|max:8',
+    'county' => 'nullable|string|max:60',
+    'country_code' => 'required|string|size:2'
+    
+    
+##### Response 
+
+    {
+        "data": {
+            "id": 1,
+            "address_1": "Flat 32l, Price Rue",
+            "address_2": "Flat 03",
+            "city": "Lake Sienna",
+            "county": null,
+            "country_code": "GB",
+            "geocodes": {
+                "lat": 51.5117038,
+                "lng": -0.1571492
+            }
+        }
+    }
+    
 
